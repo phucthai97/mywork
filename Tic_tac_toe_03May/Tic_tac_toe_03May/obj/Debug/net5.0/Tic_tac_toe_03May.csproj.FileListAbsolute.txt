@@ -1,0 +1,16 @@
+C:\Users\ADMIN\source\repos\Tic_tac_toe_03May\Tic_tac_toe_03May\bin\Debug\net5.0\Tic_tac_toe_03May.exe
+C:\Users\ADMIN\source\repos\Tic_tac_toe_03May\Tic_tac_toe_03May\bin\Debug\net5.0\Tic_tac_toe_03May.deps.json
+C:\Users\ADMIN\source\repos\Tic_tac_toe_03May\Tic_tac_toe_03May\bin\Debug\net5.0\Tic_tac_toe_03May.runtimeconfig.json
+C:\Users\ADMIN\source\repos\Tic_tac_toe_03May\Tic_tac_toe_03May\bin\Debug\net5.0\Tic_tac_toe_03May.runtimeconfig.dev.json
+C:\Users\ADMIN\source\repos\Tic_tac_toe_03May\Tic_tac_toe_03May\bin\Debug\net5.0\Tic_tac_toe_03May.dll
+C:\Users\ADMIN\source\repos\Tic_tac_toe_03May\Tic_tac_toe_03May\bin\Debug\net5.0\Tic_tac_toe_03May.pdb
+C:\Users\ADMIN\source\repos\Tic_tac_toe_03May\Tic_tac_toe_03May\obj\Debug\net5.0\Tic_tac_toe_03May.csproj.AssemblyReference.cache
+C:\Users\ADMIN\source\repos\Tic_tac_toe_03May\Tic_tac_toe_03May\obj\Debug\net5.0\Tic_tac_toe_03May.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ADMIN\source\repos\Tic_tac_toe_03May\Tic_tac_toe_03May\obj\Debug\net5.0\Tic_tac_toe_03May.AssemblyInfoInputs.cache
+C:\Users\ADMIN\source\repos\Tic_tac_toe_03May\Tic_tac_toe_03May\obj\Debug\net5.0\Tic_tac_toe_03May.AssemblyInfo.cs
+C:\Users\ADMIN\source\repos\Tic_tac_toe_03May\Tic_tac_toe_03May\obj\Debug\net5.0\Tic_tac_toe_03May.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\source\repos\Tic_tac_toe_03May\Tic_tac_toe_03May\obj\Debug\net5.0\Tic_tac_toe_03May.dll
+C:\Users\ADMIN\source\repos\Tic_tac_toe_03May\Tic_tac_toe_03May\obj\Debug\net5.0\refint\Tic_tac_toe_03May.dll
+C:\Users\ADMIN\source\repos\Tic_tac_toe_03May\Tic_tac_toe_03May\obj\Debug\net5.0\Tic_tac_toe_03May.pdb
+C:\Users\ADMIN\source\repos\Tic_tac_toe_03May\Tic_tac_toe_03May\obj\Debug\net5.0\Tic_tac_toe_03May.genruntimeconfig.cache
+C:\Users\ADMIN\source\repos\Tic_tac_toe_03May\Tic_tac_toe_03May\obj\Debug\net5.0\ref\Tic_tac_toe_03May.dll
