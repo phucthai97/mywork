@@ -254,14 +254,16 @@ namespace Tic_tac_toe_03May
                     }
                 }
             }
-            if (array_game[0, 0] == array_game[1, 1] && array_game[1, 1] == array_game[2, 2]
-                && array_game[2, 2] == array_game[3, 3] && array_game[3, 3] == array_game[4, 4])
+            if ((array_game[0, 0] == array_game[1, 1] && array_game[1, 1] == array_game[2, 2]
+                && array_game[2, 2] == array_game[3, 3] && array_game[3, 3] == array_game[4, 4]) || 
+                (array_game[0, 4] == array_game[1, 3] && array_game[1, 3] == array_game[2, 2]
+                && array_game[2, 2] == array_game[3, 1] && array_game[3, 1] == array_game[4, 0]))
             {
-                if (array_game[0, 0] == "X")
+                if (array_game[2, 2] == "X")
                 {
                     return check_win = 1;
                 }
-                else if (array_game[0, 0] == "O")
+                else if (array_game[2, 2] == "O")
                 {
                     return check_win = 2;
                 }
