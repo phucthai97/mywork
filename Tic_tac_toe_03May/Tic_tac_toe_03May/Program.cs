@@ -18,15 +18,20 @@ namespace Tic_tac_toe_03May
             int player = 0;
             string sign_player = " "; //X or O
             bool choose_player_flat = false;
+            int check_win = 0;
             bool win = false;
+            string player_name = "";
+            string player_win = "";
             //bool choose_number_flat = false;
             //string input_player = " ";
-
+            Console.WriteLine("\n     #########################################");
+            Console.WriteLine("     #########----- TIC TAC TOE -----#########");
+            Console.WriteLine("     #########################################\n");
             do
             {
-                Console.WriteLine("Please chosse phayer to play first:");
-                Console.WriteLine("1.Harry");
-                Console.WriteLine("2.Anna");
+                Console.WriteLine("Please chosse player to play first:");
+                Console.WriteLine("1.Player A");
+                Console.WriteLine("2.Player B");
                 try
                 {
                     player = Int32.Parse(Console.ReadLine());
@@ -34,11 +39,13 @@ namespace Tic_tac_toe_03May
                     {
                         choose_player_flat = true;
                         sign_player = "X";
+                        player_name = "Player A";
                     }
                     else if (player == 2)
                     {
                         choose_player_flat = true;
                         sign_player = "O";
+                        player_name = "Player B";
                     }
                     else
                     {
@@ -53,40 +60,11 @@ namespace Tic_tac_toe_03May
 
             do
             {
-                Board_Game(array_game, player, sign_player);
-                //array_game[,] = Doing_replace(sign_player);
+                Print_Board(array_game, player_name, sign_player, win);
 
                 Doing_Game(array_game, sign_player);
 
-                #region
-                //do
-                //{
-                //    try
-                //    {
-                //        input_player = Console.ReadLine();
-                //        for (int i = 0; i < array_game.GetLength(0); i++)
-                //        {
-                //            for (int j = 0; j < array_game.GetLength(1); j++)
-                //            {
-                //                if (array_game[i,j] == input_player)
-                //                {
-                //                    array_game[i, j] = sign_player;
-                //                    choose_number_flat = true;
-                //                }
-                //            }
-                //        } if (choose_number_flat == false)
-                //        {
-                //            Console.WriteLine("Input is not exits in board, please try again");
-                //        }
-                //    }
-                //    catch (Exception)
-                //    {
-                //        Console.WriteLine("Input is not the number, please try again");
-                //    }
-
-                //} while (!choose_number_flat);
-                #endregion
-                #region
+                #region //Comment out it - another insert input value on the array
                 //do
                 //{
                 //    try
@@ -208,8 +186,6 @@ namespace Tic_tac_toe_03May
                 //} while (!choose_number_flat);
                 #endregion
 
-                //Board_Game(array_game, player);
-
                 if (player == 1)
                 {
                     player = 2;
@@ -220,10 +196,82 @@ namespace Tic_tac_toe_03May
                     player = 1;
                     sign_player = "X";
                 }
+
+                check_win = Check_To_Win(array_game);
+                if (check_win == 1)
+                {
+                    win = true;
+                    player_win = "Harry";
+                }
+                else if(check_win == 2)
+                {
+                    win = true;
+                    player_win = "Anna";
+                }
+                else
+                {
+                    win = false;
+                }
             } while (!win);
+            Print_Board(array_game, player_name, sign_player, win);
+            Console.WriteLine("\n###############################");
+            Console.WriteLine($"####  The winner is {player_win}  ####");
+            Console.WriteLine("###############################\n");
         }
 
-        #region
+        #region Check Win
+        private static int Check_To_Win(string[,] array_game)
+        {
+            int check_win = 0;
+            for (int i = 0; i < array_game.GetLength(0); i++)
+            {
+                if (array_game[i, 0] == array_game[i, 1] && array_game[i, 1] == array_game[i, 2]
+                    && array_game[i, 2] == array_game[i, 3] && array_game[i, 3] == array_game[i, 4])
+                {
+                    if (array_game[i, 0] == "X")
+                    {
+                        return check_win = 1;
+                    }
+                    else if (array_game[i, 0] == "O")
+                    {
+                        return check_win = 2;
+                    }
+                }
+
+            }
+            for (int j = 0; j < array_game.GetLength(1); j++)
+            {
+                if (array_game[0, j] == array_game[1, j] && array_game[1, j] == array_game[2, j]
+                                    && array_game[2, j] == array_game[3, j] && array_game[3, j] == array_game[4, j])
+                {
+                    if (array_game[0, j] == "X")
+                    {
+                        return check_win = 1;
+                    }
+                    else if (array_game[0, j] == "O")
+                    {
+                        return check_win = 2;
+                    }
+                }
+            }
+            if (array_game[0, 0] == array_game[1, 1] && array_game[1, 1] == array_game[2, 2]
+                && array_game[2, 2] == array_game[3, 3] && array_game[3, 3] == array_game[4, 4])
+            {
+                if (array_game[0, 0] == "X")
+                {
+                    return check_win = 1;
+                }
+                else if (array_game[0, 0] == "O")
+                {
+                    return check_win = 2;
+                }
+            }
+            return check_win = 0;
+
+        }
+        #endregion
+
+        #region Doing Game
         public static void Doing_Game(string[,] Darray_game, string sign_player)
         {
             bool choose_number_flat = false;
@@ -266,11 +314,12 @@ namespace Tic_tac_toe_03May
 
             } while (!choose_number_flat);
         }
+        #endregion
 
-        static void Board_Game(string[,] Barray_game, int player_choose, string sign_player)
+        #region Print Board on screen
+        static void Print_Board(string[,] Barray_game, string player_name, string sign_player, bool win)
         {
-            Console.WriteLine("-----------Game Tick Toe-----------\n\n");
-            Console.WriteLine("     |-------|-------|-------|-------|-------|");
+            Console.WriteLine("\n     |-------|-------|-------|-------|-------|");
             for (int i = 0; i < Barray_game.GetLength(0); i++)
             {
 
@@ -280,18 +329,55 @@ namespace Tic_tac_toe_03May
                 {
                     if (Barray_game[i, j].Length == 1)
                     {
-                        Console.Write($"{Barray_game[i, j]}   |   ");
+                        if (Barray_game[i, j] == "X")
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.Write($"{Barray_game[i, j]}");
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                            Console.Write("   |   ");
+                        }
+                        else if (Barray_game[i, j] == "O")
+                        {
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.Write($"{Barray_game[i, j]}");
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                            Console.Write("   |   ");
+                        }
+                        else
+                        {
+                            Console.Write($"{Barray_game[i, j]}");
+                            Console.Write("   |   ");
+                        }
                     }
                     else if (Barray_game[i, j].Length == 2)
                     {
-                        Console.Write($"{Barray_game[i, j]}  |   ");
+                        if (Barray_game[i, j] == "X")
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.Write($"{Barray_game[i, j]}");
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                            Console.Write("  |   ");
+                        }
+                        else if (Barray_game[i, j] == "O")
+                        {
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.Write($"{Barray_game[i, j]}");
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                            Console.Write("  |   ");
+                        }
+                        else
+                        {
+                            Console.Write($"{Barray_game[i, j]}");
+                            Console.Write("  |   ");
+                        }
                     }
                 }
                 Console.WriteLine("");
                 Console.WriteLine("     |       |       |       |       |       |");
                 Console.WriteLine("     |-------|-------|-------|-------|-------|");
             }
-            Console.WriteLine($"\n-> Player {player_choose} (with sign {sign_player}) turn, Please enter number:");
+            if(win == false)
+            Console.WriteLine($"\n-> Player {player_name} (with sign {sign_player}) turn, Please enter number:");
         }
         #endregion
     }
