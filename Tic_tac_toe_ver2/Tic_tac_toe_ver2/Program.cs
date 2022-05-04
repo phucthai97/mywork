@@ -14,12 +14,11 @@ namespace Tic_tac_toe_ver2
             //    {"16", "17", "18", "19", "20"},
             //    {"21", "22", "23", "24", "25"}
             //};
-
             int player = 0;
             int check_win = 0;
             int choose_size = 0;
             int size_board = 1;
-            int score_to_win = 3;
+            int score_to_win = 5;
 
             string sign_player = " "; //X or O
             string player_name = "";
@@ -45,7 +44,6 @@ namespace Tic_tac_toe_ver2
                     choose_size = Int32.Parse(Console.ReadLine());
                     if (choose_size == 1)
                     {
-                        //string[,] array_game = new string[5,5];
                         choose_size_flat = true;
                         size_board = 5;
                     }
@@ -78,10 +76,6 @@ namespace Tic_tac_toe_ver2
 
             string[,] array_game = new string[size_board, size_board];
             array_game = Make_Size_Board(size_board);
-            //for (int i = 0; i < array_game.GetLength(0); i++)
-            //{
-            //    Console.WriteLine(array_game[6, i]);
-            //}
 
             do
             {
@@ -120,128 +114,6 @@ namespace Tic_tac_toe_ver2
 
                 Doing_Game(array_game, sign_player);
 
-                #region //Comment out it - another insert input value on the array
-                //do
-                //{
-                //    try
-                //    {
-                //        input_player = Int32.Parse(Console.ReadLine());
-                //        #region
-                //        switch (input_player)
-                //        {
-                //            case 1:
-                //                choose_number_flat = true;
-                //                array_game[0, 0] = sign_player;
-                //                break;
-                //            case 2:
-                //                choose_number_flat = true;
-                //                array_game[0, 1] = sign_player;
-                //                break;
-                //            case 3:
-                //                choose_number_flat = true;
-                //                array_game[0, 2] = sign_player;
-                //                break;
-                //            case 4:
-                //                choose_number_flat = true;
-                //                array_game[0, 3] = sign_player;
-                //                break;
-                //            case 5:
-                //                choose_number_flat = true;
-                //                array_game[0, 4] = sign_player;
-                //                break;
-                //            case 6:
-                //                choose_number_flat = true;
-                //                array_game[1, 0] = sign_player;
-                //                break;
-                //            case 7:
-                //                choose_number_flat = true;
-                //                array_game[1, 1] = sign_player;
-                //                break;
-                //            case 8:
-                //                choose_number_flat = true;
-                //                array_game[1, 2] = sign_player;
-                //                break;
-                //            case 9:
-                //                choose_number_flat = true;
-                //                array_game[1, 3] = sign_player;
-                //                break;
-                //            case 10:
-                //                choose_number_flat = true;
-                //                array_game[1, 4] = sign_player;
-                //                break;
-                //            case 11:
-                //                choose_number_flat = true;
-                //                array_game[2, 0] = sign_player;
-                //                break;
-                //            case 12:
-                //                choose_number_flat = true;
-                //                array_game[2, 1] = sign_player;
-                //                break;
-                //            case 13:
-                //                choose_number_flat = true;
-                //                array_game[2, 2] = sign_player;
-                //                break;
-                //            case 14:
-                //                choose_number_flat = true;
-                //                array_game[2, 3] = sign_player;
-                //                break;
-                //            case 15:
-                //                choose_number_flat = true;
-                //                array_game[2, 4] = sign_player;
-                //                break;
-                //            case 16:
-                //                choose_number_flat = true;
-                //                array_game[3, 0] = sign_player;
-                //                break;
-                //            case 17:
-                //                choose_number_flat = true;
-                //                array_game[3, 1] = sign_player;
-                //                break;
-                //            case 18:
-                //                choose_number_flat = true;
-                //                array_game[3, 2] = sign_player;
-                //                break;
-                //            case 19:
-                //                choose_number_flat = true;
-                //                array_game[3, 3] = sign_player;
-                //                break;
-                //            case 20:
-                //                choose_number_flat = true;
-                //                array_game[3, 4] = sign_player;
-                //                break;
-                //            case 21:
-                //                choose_number_flat = true;
-                //                array_game[4, 0] = sign_player;
-                //                break;
-                //            case 22:
-                //                choose_number_flat = true;
-                //                array_game[4, 1] = sign_player;
-                //                break;
-                //            case 23:
-                //                choose_number_flat = true;
-                //                array_game[4, 2] = sign_player;
-                //                break;
-                //            case 24:
-                //                choose_number_flat = true;
-                //                array_game[4, 3] = sign_player;
-                //                break;
-                //            case 25:
-                //                choose_number_flat = true;
-                //                array_game[4, 4] = sign_player;
-                //                break;
-                //            default:
-                //                choose_number_flat = false;
-                //                break;
-                //        }
-                //        #endregion
-                //    }
-                //    catch (Exception)
-                //    {
-                //        Console.WriteLine("Number it not exits on board. Please re-enter again");
-                //    }
-                //} while (!choose_number_flat);
-                #endregion
-
                 if (player == 1)
                 {
                     player = 2;
@@ -271,9 +143,9 @@ namespace Tic_tac_toe_ver2
                 }
             } while (!win);
             Print_Board(array_game, player_name, sign_player, win, size_board);
-            Console.WriteLine("\n###############################");
-            Console.WriteLine($"####  The winner is {player_win}  ####");
-            Console.WriteLine("###############################\n");
+            Console.WriteLine("\n###########################");
+            Console.WriteLine($"##### {player_win} is winner #####");
+            Console.WriteLine("###########################\n");
         }
 
         #region Make Size Board Game
@@ -298,24 +170,21 @@ namespace Tic_tac_toe_ver2
         {
             int check_win = 0;
             string[] sign_player_arr = { "X", "O" };
-            Console.WriteLine($"This for test { array_game.GetLength(0)} and  {array_game.GetLength(1)} and h is {sign_player_arr.GetLength(0)}");
+            //Console.WriteLine($"This for test { array_game.GetLength(0)} and  {array_game.GetLength(1)} and h is {sign_player_arr.GetLength(0)}");
             for (int h = 0; h < sign_player_arr.GetLength(0); h++)
             {
-                //Console.WriteLine("h is ok");
                 for (int i = 0; i < array_game.GetLength(0); i++)
                 {
-                    //Console.WriteLine("i is ok");
                     for (int j = 0; j < array_game.GetLength(1); j++)
                     {
-                        //Console.WriteLine("j is ok");
                         if (array_game[i, j] == sign_player_arr[h])
                         {
-                            //Console.WriteLine($"Check sign is ok, sign is {sign_player_arr[h]} and value is {array_game[i, j]}");
                             //Check top to bottom
                             if (i <= (array_game.GetLength(0) - score_to_win))
                             {
-                                Console.WriteLine($"array[{i}, {j}]with sign {sign_player_arr[h]} top to bottom is ok");
-                                if (array_game[i, j] == array_game[i + 1, j] && array_game[i + 1, j] == array_game[i + 2, j])
+                                //Console.WriteLine($"array[{i}, {j}]with sign {sign_player_arr[h]} top to bottom is ok");
+                                if (array_game[i, j] == array_game[i + 1, j] && array_game[i + 1, j] == array_game[i + 2, j] && 
+                                    array_game[i + 2, j] == array_game[i + 3, j] && array_game[i + 3, j] == array_game[i + 4, j])
                                 {
                                     //Console.WriteLine("top to bottom detect to win!!!!!!!!!!!!!");
                                     if (sign_player_arr[h] == "X")
@@ -331,10 +200,11 @@ namespace Tic_tac_toe_ver2
                             //Check left to right
                             if (j <= (array_game.GetLength(1) - score_to_win))
                             {
-                                Console.WriteLine($"array[{i}, {j}] with sigh {sign_player_arr[h]} left to right is ok");
-                                if (array_game[i, j] == array_game[i, j + 1] && array_game[i, j + 1] == array_game[i, j + 2])
+                                //Console.WriteLine($"array[{i}, {j}] with sigh {sign_player_arr[h]} left to right is ok");
+                                if (array_game[i, j] == array_game[i, j + 1] && array_game[i, j + 1] == array_game[i, j + 2]
+                                    && array_game[i, j + 2] == array_game[i, j + 3] && array_game[i, j + 3] == array_game[i, j + 4])
                                 {
-                                    Console.WriteLine("left to right detect to win!!!!!!!!!!!!!");
+                                    //Console.WriteLine("left to right detect to win!!!!!!!!!!!!!");
                                     if (sign_player_arr[h] == "X")
                                     {
                                         return check_win = 1;
@@ -348,7 +218,8 @@ namespace Tic_tac_toe_ver2
                             //Check cross lef-top to right-bottom
                             if ((i <= (array_game.GetLength(0) - score_to_win)) && (j <= (array_game.GetLength(1) - score_to_win)))
                             {
-                                if (array_game[i, j] == array_game[i + 1, j + 1] && array_game[i + 1, j + 1] == array_game[i + 2, j + 2])
+                                if (array_game[i, j] == array_game[i + 1, j + 1] && array_game[i + 1, j + 1] == array_game[i + 2, j + 2]
+                                    && array_game[i + 2, j + 2] == array_game[i + 3, j + 3] && array_game[i + 3, j + 3] == array_game[i + 4, j + 4])
                                 {
                                     if (sign_player_arr[h] == "X")
                                     {
@@ -450,8 +321,10 @@ namespace Tic_tac_toe_ver2
                         else if (Barray_game[i, j] == "O")
                         {
                             Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.BackgroundColor = ConsoleColor.DarkGray;
                             Console.Write($"{Barray_game[i, j]}");
                             Console.ForegroundColor = ConsoleColor.Gray;
+                            Console.BackgroundColor = ConsoleColor.Black;
                             Console.Write("   |   ");
                         }
                         else
