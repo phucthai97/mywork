@@ -6,26 +6,22 @@ namespace Tic_tac_toe_ver2
     {
         static void Main(string[] args)
         {
-            //string[,] array_game =
-            //{
-            //    {"1", "2", "3", "4", "5"},
-            //    {"6", "7", "8", "9", "10"},
-            //    {"11", "12", "13", "14", "15"},
-            //    {"16", "17", "18", "19", "20"},
-            //    {"21", "22", "23", "24", "25"}
-            //};
             int player = 0;
             int check_win = 0;
             int choose_size = 0;
             int size_board = 1;
             int score_to_win = 5;
+            int row = 0;
+            int col = 0;
+            int vector = 0;
 
             string sign_player = " "; //X or O
             string player_name = "";
-            string player_win = "";
+            string winner_name = "";
 
             bool choose_player_flat = false;
             bool win = false;
+            bool draw = false;
             bool choose_size_flat = false;
 
             Console.WriteLine("\n     #########################################");
@@ -110,7 +106,7 @@ namespace Tic_tac_toe_ver2
 
             do
             {
-                Print_Board(array_game, player_name, sign_player, win, size_board);
+                Print_Board(array_game, player_name, sign_player, win, size_board, row, col, vector);
 
                 Doing_Game(array_game, sign_player);
 
@@ -126,27 +122,151 @@ namespace Tic_tac_toe_ver2
                 }
 
                 check_win = Check_To_Win(array_game, score_to_win);
-
-                if (check_win == 1)
+                int player_index = (int)Math.Floor((double)check_win / 100000);
+                row = (int)Math.Floor(((double)check_win % 100000) / 1000);
+                col = (int)Math.Floor(((double)check_win % 1000) / 10);
+                vector = check_win % 10;
+                if (player_index == 1)
                 {
                     win = true;
-                    player_win = "Harry";
+                    winner_name = "Player A";
                 }
-                else if (check_win == 2)
+                else if (player_index == 2)
                 {
                     win = true;
-                    player_win = "Anna";
+                    winner_name = "Player B";
                 }
                 else
                 {
-                    win = false;
+                    win = Check_Enable_Win_Or_Draw(array_game, score_to_win);
+                    if (win == true)
+                    {
+                        draw = true;
+                    }
                 }
             } while (!win);
-            Print_Board(array_game, player_name, sign_player, win, size_board);
-            Console.WriteLine("\n###########################");
-            Console.WriteLine($"##### {player_win} is winner #####");
-            Console.WriteLine("###########################\n");
+            Print_Board(array_game, player_name, sign_player, win, size_board, row, col, vector);
+            if (draw == true)
+            {
+                Console.WriteLine("\n###########################");
+                Console.WriteLine($"####### Draw Game!! #######");
+                Console.WriteLine("###########################\n");
+            }
+            else
+            {
+                Console.WriteLine("\n###########################");
+                Console.WriteLine($"##### {winner_name} is winner #####");
+                Console.WriteLine("###########################\n");
+            }
         }
+
+        #region Check Win Or Draw
+        private static bool Check_Enable_Win_Or_Draw(string[,] array_game, int score_to_win)
+        {
+            bool draw = false;
+            for (int i = 0; i < array_game.GetLength(0); i++)
+            {
+                for (int j = 0; j < array_game.GetLength(1); j++)
+                {
+                    if (array_game[i, j] != "O")
+                    {
+                        //Check top to bottom
+                        if (i <= (array_game.GetLength(0) - score_to_win))
+                        {
+                            if (array_game[i + 1, j] != "O" && array_game[i + 2, j] != "O" &&
+                                array_game[i + 3, j] != "O" && array_game[i + 4, j] != "O")
+                            {
+                                //Console.WriteLine($"This is for test X step 1 at array[{i}, {j}]");
+                                return draw = false;
+                            }
+                        }
+                        //Check left to right
+                        if (j <= (array_game.GetLength(1) - score_to_win))
+                        {
+                            if (array_game[i, j + 1] != "O" && array_game[i, j + 2] != "O" &&
+                               array_game[i, j + 3] != "O" && array_game[i, j + 4] != "O")
+                            {
+                                //Console.WriteLine($"This is for test X step 2 at array[{i}, {j}]");
+                                return draw = false;
+                            }
+                        }
+                        //Check cross lef-top to right-bottom
+                        if ((i <= (array_game.GetLength(0) - score_to_win)) && (j <= (array_game.GetLength(1) - score_to_win)))
+                        {
+                            if (array_game[i + 1, j + 1] != "O" && array_game[i + 2, j + 2] != "O" &&
+                               array_game[i + 3, j + 3] != "O" && array_game[i + 4, j + 4] != "O")
+                            {
+                                //Console.WriteLine($"This is for test X step 3 at array[{i}, {j}]");
+                                return draw = false;
+                            }
+                        }
+                        //Check cross right_top to left-bottom
+                        if ((i <= (array_game.GetLength(0) - score_to_win)) && (j >= (array_game.GetLength(1) - score_to_win)))
+                        {
+                            if (array_game[i + 1, j - 1] != "O" && array_game[i + 2, j - 2] != "O" &&
+                               array_game[i + 3, j - 3] != "O" && array_game[i + 4, j - 4] != "O")
+                            {
+                                //Console.WriteLine($"This is for test X step 4 at array[{i}, {j}]");
+                                return draw = false;
+                            }
+                        }
+                    }
+                }
+            }
+            //player1_cant_win = true;
+            for (int i = 0; i < array_game.GetLength(0); i++)
+            {
+                for (int j = 0; j < array_game.GetLength(1); j++)
+                {
+                    if (array_game[i, j] != "X")
+                    {
+                        //Check top to bottom
+                        if (i <= (array_game.GetLength(0) - score_to_win))
+                        {
+                            if (array_game[i + 1, j] != "X" && array_game[i + 2, j] != "X" &&
+                                array_game[i + 3, j] != "X" && array_game[i + 4, j] != "X")
+                            {
+                                //Console.WriteLine($"This is for test O step 1 at array[{i}, {j}]");
+                                return draw = false;
+                            }
+                        }
+                        //Check left to right
+                        if (j <= (array_game.GetLength(1) - score_to_win))
+                        {
+                            if (array_game[i, j + 1] != "X" && array_game[i, j + 2] != "X" &&
+                               array_game[i, j + 3] != "X" && array_game[i, j + 4] != "X")
+                            {
+                                //Console.WriteLine($"This is for test O step 2 at array[{i}, {j}]");
+                                return draw = false;
+                            }
+                        }
+                        //Check cross lef-top to right-bottom
+                        if ((i <= (array_game.GetLength(0) - score_to_win)) && (j <= (array_game.GetLength(1) - score_to_win)))
+                        {
+                            if (array_game[i + 1, j + 1] != "X" && array_game[i + 2, j + 2] != "X" &&
+                               array_game[i + 3, j + 3] != "X" && array_game[i + 4, j + 4] != "X")
+                            {
+                                //Console.WriteLine($"This is for test O step 3 at array[{i}, {j}]");
+                                return draw = false;
+                            }
+                        }
+                        //Check cross right_top to left-bottom
+                        if ((i <= (array_game.GetLength(0) - score_to_win)) && (j >= (array_game.GetLength(1) - score_to_win)))
+                        {
+                            if (array_game[i + 1, j - 1] != "X" && array_game[i + 2, j - 2] != "X" &&
+                               array_game[i + 3, j - 3] != "X" && array_game[i + 4, j - 4] != "X")
+                            {
+                                //Console.WriteLine($"This is for test O step 4 at array[{i}, {j}]");
+                                return draw = false;
+                            }
+                        }
+                    }
+                }
+            }
+            draw = true;
+            return draw;
+        }
+        #endregion
 
         #region Make Size Board Game
         private static string[,] Make_Size_Board(int size_board)
@@ -170,7 +290,6 @@ namespace Tic_tac_toe_ver2
         {
             int check_win = 0;
             string[] sign_player_arr = { "X", "O" };
-            //Console.WriteLine($"This for test { array_game.GetLength(0)} and  {array_game.GetLength(1)} and h is {sign_player_arr.GetLength(0)}");
             for (int h = 0; h < sign_player_arr.GetLength(0); h++)
             {
                 for (int i = 0; i < array_game.GetLength(0); i++)
@@ -183,17 +302,17 @@ namespace Tic_tac_toe_ver2
                             if (i <= (array_game.GetLength(0) - score_to_win))
                             {
                                 //Console.WriteLine($"array[{i}, {j}]with sign {sign_player_arr[h]} top to bottom is ok");
-                                if (array_game[i, j] == array_game[i + 1, j] && array_game[i + 1, j] == array_game[i + 2, j] && 
+                                if (array_game[i, j] == array_game[i + 1, j] && array_game[i + 1, j] == array_game[i + 2, j] &&
                                     array_game[i + 2, j] == array_game[i + 3, j] && array_game[i + 3, j] == array_game[i + 4, j])
                                 {
                                     //Console.WriteLine("top to bottom detect to win!!!!!!!!!!!!!");
                                     if (sign_player_arr[h] == "X")
-                                    {
-                                        return check_win = 1;
+                                    { //103082
+                                        return check_win = 1 * 100000 + i * 1000 + j * 10 + 1;
                                     }
                                     else if (sign_player_arr[h] == "O")
                                     {
-                                        return check_win = 2;
+                                        return check_win = 2 * 100000 + i * 1000 + j * 10 + 1;
                                     }
                                 }
                             }
@@ -207,11 +326,11 @@ namespace Tic_tac_toe_ver2
                                     //Console.WriteLine("left to right detect to win!!!!!!!!!!!!!");
                                     if (sign_player_arr[h] == "X")
                                     {
-                                        return check_win = 1;
+                                        return check_win = 1 * 100000 + i * 1000 + j * 10 + 2;
                                     }
                                     else if (sign_player_arr[h] == "O")
                                     {
-                                        return check_win = 2;
+                                        return check_win = 2 * 100000 + i * 1000 + j * 10 + 2;
                                     }
                                 }
                             }
@@ -223,11 +342,27 @@ namespace Tic_tac_toe_ver2
                                 {
                                     if (sign_player_arr[h] == "X")
                                     {
-                                        return check_win = 1;
+                                        return check_win = 1 * 100000 + i * 1000 + j * 10 + 3;
                                     }
                                     else if (sign_player_arr[h] == "O")
                                     {
-                                        return check_win = 2;
+                                        return check_win = 2 * 100000 + i * 1000 + j * 10 + 3;
+                                    }
+                                }
+                            }
+                            //Check right-top to left-bottom
+                            if ((i <= (array_game.GetLength(0) - score_to_win)) && (j >= (array_game.GetLength(1) - score_to_win)))
+                            {
+                                if (array_game[i, j] == array_game[i + 1, j - 1] && array_game[i + 1, j - 1] == array_game[i + 2, j - 2]
+                                    && array_game[i + 2, j - 2] == array_game[i + 3, j - 3] && array_game[i + 3, j - 3] == array_game[i + 4, j - 4])
+                                {
+                                    if (sign_player_arr[h] == "X")
+                                    {
+                                        return check_win = 1 * 100000 + i * 1000 + j * 10 + 4;
+                                    }
+                                    else if (sign_player_arr[h] == "O")
+                                    {
+                                        return check_win = 2 * 100000 + i * 1000 + j * 10 + 4;
                                     }
                                 }
                             }
@@ -250,7 +385,6 @@ namespace Tic_tac_toe_ver2
                 try
                 {
                     input_player = Console.ReadLine().ToString();
-                    //input_player_char = 
                     if (input_player == "X" || input_player == "O")
                     {
                         Is_X_or_O = true;
@@ -285,7 +419,7 @@ namespace Tic_tac_toe_ver2
         #endregion
 
         #region Print Board on screen
-        static void Print_Board(string[,] Barray_game, string player_name, string sign_player, bool win, int size_board)
+        static void Print_Board(string[,] Barray_game, string player_name, string sign_player, bool win, int size_board, int row, int col, int vector)
         {
             //Draw top borders
             Console.Write("\n     |");
@@ -313,16 +447,70 @@ namespace Tic_tac_toe_ver2
                     {
                         if (Barray_game[i, j] == "X")
                         {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.Write($"{Barray_game[i, j]}");
+                            if (i == row && j == col && vector != 0)
+                            {
+                                Console.BackgroundColor = ConsoleColor.DarkYellow;
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.Write($"{Barray_game[i, j]}");
+                                if (vector == 1)
+                                {
+                                    row++;
+                                }
+                                else if (vector == 2)
+                                {
+                                    col++;
+                                }
+                                else if (vector == 3)
+                                {
+                                    row++;
+                                    col++;
+                                }
+                                else if (vector == 4)
+                                {
+                                    row++;
+                                    col--;
+                                }
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.Write($"{Barray_game[i, j]}");
+                            }
                             Console.ForegroundColor = ConsoleColor.Gray;
+                            Console.BackgroundColor = ConsoleColor.Black;
                             Console.Write("   |   ");
                         }
                         else if (Barray_game[i, j] == "O")
                         {
-                            Console.ForegroundColor = ConsoleColor.Cyan;
-                            Console.BackgroundColor = ConsoleColor.DarkGray;
-                            Console.Write($"{Barray_game[i, j]}");
+                            if (i == row && j == col && vector != 0)
+                            {
+                                Console.BackgroundColor = ConsoleColor.DarkYellow;
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.Write($"{Barray_game[i, j]}");
+                                if (vector == 1)
+                                {
+                                    row++;
+                                }
+                                else if (vector == 2)
+                                {
+                                    col++;
+                                }
+                                else if (vector == 3)
+                                {
+                                    row++;
+                                    col++;
+                                }
+                                else if (vector == 4)
+                                {
+                                    row++;
+                                    col--;
+                                }
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.Cyan;
+                                Console.Write($"{Barray_game[i, j]}");
+                            }
                             Console.ForegroundColor = ConsoleColor.Gray;
                             Console.BackgroundColor = ConsoleColor.Black;
                             Console.Write("   |   ");
@@ -335,47 +523,13 @@ namespace Tic_tac_toe_ver2
                     }
                     else if (Barray_game[i, j].Length == 2)
                     {
-                        if (Barray_game[i, j] == "X")
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.Write($"{Barray_game[i, j]}");
-                            Console.ForegroundColor = ConsoleColor.Gray;
-                            Console.Write("  |   ");
-                        }
-                        else if (Barray_game[i, j] == "O")
-                        {
-                            Console.ForegroundColor = ConsoleColor.Cyan;
-                            Console.Write($"{Barray_game[i, j]}");
-                            Console.ForegroundColor = ConsoleColor.Gray;
-                            Console.Write("  |   ");
-                        }
-                        else
-                        {
-                            Console.Write($"{Barray_game[i, j]}");
-                            Console.Write("  |   ");
-                        }
+                        Console.Write($"{Barray_game[i, j]}");
+                        Console.Write("  |   ");
                     }
                     else if (Barray_game[i, j].Length == 3)
                     {
-                        if (Barray_game[i, j] == "X")
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.Write($"{Barray_game[i, j]}");
-                            Console.ForegroundColor = ConsoleColor.Gray;
-                            Console.Write(" |   ");
-                        }
-                        else if (Barray_game[i, j] == "O")
-                        {
-                            Console.ForegroundColor = ConsoleColor.Cyan;
-                            Console.Write($"{Barray_game[i, j]}");
-                            Console.ForegroundColor = ConsoleColor.Gray;
-                            Console.Write(" |   ");
-                        }
-                        else
-                        {
-                            Console.Write($"{Barray_game[i, j]}");
-                            Console.Write(" |   ");
-                        }
+                        Console.Write($"{Barray_game[i, j]}");
+                        Console.Write(" |   ");
                     }
                 }
                 Console.WriteLine("");
