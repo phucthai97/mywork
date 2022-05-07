@@ -158,6 +158,7 @@ namespace Tic_tac_toe_ver2
                 Console.WriteLine($"##### {winner_name} is winner #####");
                 Console.WriteLine("###########################\n");
             }
+            Console.ReadKey();
         }
 
         #region Check Win Or Draw
